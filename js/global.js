@@ -144,273 +144,291 @@ var multiply, maxdmg, mindmg, avgdmg, elemwandbonus, elementamp, skillmastery,
 // Main calculating function
 
 function main() {
-		var job = parseInt($("#jobselect").val());
-		var def;
-		var damagetype = parseInt($("#damagetype").val());
 
-		// MONSTER LEVEL
-		var m = parseInt($("#monster").val());
+	var job = $("#jobselect").val();
+	var def;
+	var damagetype = parseInt($("#damagetype").val());
 
-		// LEVEL DIFFERENCE
+	// MONSTER LEVEL
+	var m = parseInt($("#monster").val());
+
+	// LEVEL DIFFERENCE
+	var d = parseInt(monsterlist[m].level) - parseInt($("#level").val());
+	if (d < 0) {
+		d = 0;
+	}
+
+	switch(job) {
+
+		case "1": // warrior
+
+		$("#results").show();
+		def = monsterlist[m].wdef + "</b> weapon defense";
+		$(".currentaccuracy").hide();
+		
+		// WARRIOR (GLOBAL DECLARE)
+		
+		acc = parseInt($("#acc").val());
+		
+		// DAMAGE
+
+		// elemental multiplier
+		
+		checkWeakness(damagetype, m);
+
+		// ACCURACY
+		
+		globalAccuracy(d, acc, m);
+		
+		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
+			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
+			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
+			"</b> avoidabillity.");
+
+		break;
+		case "2": // bowmen
+
+		$("#results").show();
+		console.log('i pass hits')
+
+		def = monsterlist[m].wdef + "</b> weapon defense";
+		$(".currentaccuracy").hide();
+		
+		// ARCHER (GLOBAL DECLARE)
+		
+		acc = parseInt($("#acc").val());
+		
+		// DAMAGE
+
+		// elemental multiplier
+		
+		checkWeakness(damagetype, m);
+
+		// ACCURACY
+		
+		globalAccuracy(d, acc, m);
+		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
+			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
+			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
+			"</b> avoidabillity.");
+
+		break;
+		case "3": // thief
+
+		$("#results").show();
+		def = monsterlist[m].wdef + "</b> weapon defense";
+		$(".currentaccuracy").hide();
+		
+		// THIEF (GLOBAL DECLARE)
+		
+		acc = parseInt($("#acc").val());
+		
+		// DAMAGE
+		
+		// elemental multiplier
+		
+		checkWeakness(damagetype, m);
+
+		// ACCURACY
+		
+		globalAccuracy(d, acc, m);
+		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
+			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
+			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
+			"</b> avoidabillity.");
+
+		break;
+		case "4": // pirate
+
+		$("#results").show();
+		def = monsterlist[m].wdef + "</b> weapon defense";
+		$(".currentaccuracy").hide();
+		
+		// PIRATE (GLOBAL DECLARE)
+		
+		acc = parseInt($("#acc").val());
+		
+		// DAMAGE
+		
+		// elemental multiplier
+		
+		checkWeakness(damagetype, m);
+
+		// ACCURACY
+		
+		globalAccuracy(d, acc, m);
+		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
+			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
+			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
+			"</b> avoidabillity.");
+
+		break;
+		case "5": // magician
+
+		$("#results").show();
+		def = monsterlist[m].mdef + "</b> magic defense";
+		
+		//  MAGICIAN (GLOBAL DECLARE)
+		
+		totalint = parseInt($("#int").val());
+		totalluk = parseInt($("#luk").val());
+		totalmagic = parseInt($("#totalmagic").val());
+		skillattack = parseInt($("#skillattack").val());
+		skillmastery = eval($("#skillmastery option:selected").val());
+		elementamp = eval($("#elementamp option:selected").val());
+		elemwandbonus = eval($("#elemwandbonus option:selected").val());
+		
+		//	DAMAGE
+		
+		// max
+		
+		var result1 = ((totalmagic * totalmagic) / 1000);
+		result1 += totalmagic;
+		result1 = result1 / 30;
+		var result2 = (totalint / 200);
+		var maxresult = eval(result1) + eval(result2);
+		
+		// min
+		
+		var result3 = ((totalmagic * totalmagic) / 1000);
+		var result4 = (totalmagic * skillmastery * 0.9);
+		result3 += result4;
+		result4 = result3 / 30;
+		var result5 = (totalint / 200);
+		var minresult = eval(result4) + eval(result5);
+		
+		// minmax
+		
+		maxdmg = Math.floor(parseInt(maxresult * skillattack * elementamp *	elemwandbonus));
+		mindmg = Math.floor(parseInt(minresult * skillattack * elementamp *	elemwandbonus));
+		
+		// elemental multiplier
+		
+		checkWeakness(damagetype, m);
+		
+		// def reduxx + avg
+		
+		maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d));
+		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
+		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
+		
+		// declare array
+		
+		var roundmatk = [mindmg, maxdmg, avgdmg];
+			
+			// max damage
+		for 
+			(var i = 0; i < roundmatk.length; i++) {
+			if (roundmatk[i] > 99999) {
+				roundmatk[i] = 99999;
+			} else {}
+		}
+		
+		// min damage
+		
+		for (var i = 0; i < roundmatk.length; i++) {
+			if (roundmatk[i] < 1) {
+				roundmatk[i] = 1;
+			} else {}
+		}
+
+		$("#mindmg").html(Math.floor(roundmatk[0]));
+		$("#maxdmg").html(Math.floor(roundmatk[1]));
+		$("#avgdmg").html(Math.floor(roundmatk[2]));
+		
+		//	ACCURACY
+		
+		magicAccuracy(totalint, totalluk, m, d);
+		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
+			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
+			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
+			"</b> avoidabillity.");
+
+		break;
+		case "6": // heal
+
+		$("#results").show();
+		
+		// RESET BECAUSE UNDEAD ONLY
+		
+		damagetype = 4;
+		var m = parseInt($("#unmonster").val());
 		var d = parseInt(monsterlist[m].level) - parseInt($("#level").val());
 		if (d < 0) {
 			d = 0;
 		}
+		def = monsterlist[m].mdef + "</b> magic defense";
+		
+		//  MAGICIAN HEAL (GLOBAL DECLARE)
+		
+		totalint = parseInt($("#int").val());
+		totalluk = parseInt($("#luk").val());
+		totalmagic = parseInt($("#totalmagic").val());
+		heallevel = eval($("#heallevel option:selected").val());
+		monsteramount = eval($("#monsteramount option:selected").val());
+		
+		// DAMAGE
+		
+		var mobamount = [48 / 48, 38 / 48, 33 / 48, 30 / 48, 28 / 48];
+		mobamount = mobamount[monsteramount]
+			
+			// min-max-avg dmg 
+		var mindmg = ((totalint * 1.2 + totalluk * 4) * totalmagic / 1000 *	heallevel * mobamount);
+		var maxdmg = ((totalint * 4.8 + totalluk * 4) * totalmagic / 1000 *	heallevel * mobamount);
 
-		switch(job) {
-
-			case "1": // warrior
-
-			$("#results").show();
-			def = monsterlist[m].wdef + "</b> weapon defense";
-			$(".currentaccuracy").hide();
+		checkWeakness(damagetype, m);
+		
+		// def reduxx + avg
+		
+		maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d))
+		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d))
+		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
+		
+		// declare array
+		
+		var roundmatk = [mindmg, maxdmg, avgdmg]
 			
-			// WARRIOR (GLOBAL DECLARE)
-			
-			acc = parseInt($("#acc").val());
-			
-			// DAMAGE
-
-			// ACCURACY
-			
-			globalAccuracy(d, acc, m);
-			
-			$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
-				monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
-				"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
-				"</b> avoidabillity.");
-
-			break;
-			case "2": // bowmen
-
-			$("#results").show();
-			def = monsterlist[m].wdef + "</b> weapon defense";
-			$(".currentaccuracy").hide();
-			
-			// ARCHER (GLOBAL DECLARE)
-			
-			acc = parseInt($("#acc").val());
-			
-			// DAMAGE
-
-			// ACCURACY
-			
-			globalAccuracy(d, acc, m);
-			$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
-				monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
-				"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
-				"</b> avoidabillity.");
-
-			break;
-			case "3": // thief
-
-			$("#results").show();
-			def = monsterlist[m].wdef + "</b> weapon defense";
-			$(".currentaccuracy").hide();
-			
-			// THIEF (GLOBAL DECLARE)
-			
-			acc = parseInt($("#acc").val());
-			
-			// DAMAGE
-			
-
-			// ACCURACY
-			
-			globalAccuracy(d, acc, m);
-			$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
-				monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
-				"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
-				"</b> avoidabillity.");
-
-			break;
-			case "4": // pirate
-
-			$("#results").show();
-			def = monsterlist[m].wdef + "</b> weapon defense";
-			$(".currentaccuracy").hide();
-			
-			// PIRATE (GLOBAL DECLARE)
-			
-			acc = parseInt($("#acc").val());
-			
-			// DAMAGE
-			
-
-			// ACCURACY
-			
-			globalAccuracy(d, acc, m);
-			$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
-				monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
-				"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
-				"</b> avoidabillity.");
-
-			break;
-			case "5": // magician
-
-			$("#results").show();
-			def = monsterlist[m].mdef + "</b> magic defense";
-			
-			//  MAGICIAN (GLOBAL DECLARE)
-			
-			totalint = parseInt($("#int").val());
-			totalluk = parseInt($("#luk").val());
-			totalmagic = parseInt($("#totalmagic").val());
-			skillattack = parseInt($("#skillattack").val());
-			skillmastery = eval($("#skillmastery option:selected").val());
-			elementamp = eval($("#elementamp option:selected").val());
-			elemwandbonus = eval($("#elemwandbonus option:selected").val());
-			
-			//	DAMAGE
-			
-			// max
-			
-			var result1 = ((totalmagic * totalmagic) / 1000);
-			result1 += totalmagic;
-			result1 = result1 / 30;
-			var result2 = (totalint / 200);
-			var maxresult = eval(result1) + eval(result2);
-			
-			// min
-			
-			var result3 = ((totalmagic * totalmagic) / 1000);
-			var result4 = (totalmagic * skillmastery * 0.9);
-			result3 += result4;
-			result4 = result3 / 30;
-			var result5 = (totalint / 200);
-			var minresult = eval(result4) + eval(result5);
-			
-			// minmax
-			
-			maxdmg = Math.floor(parseInt(maxresult * skillattack * elementamp *	elemwandbonus));
-			mindmg = Math.floor(parseInt(minresult * skillattack * elementamp *	elemwandbonus));
-			
-			// elemental multiplier
-			
-			checkWeakness(damagetype, m);
-			
-			// def reduxx + avg
-			
-			maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d));
-			mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
-			avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
-			
-			// declare array
-			
-			var roundmatk = [mindmg, maxdmg, avgdmg];
-				
-				// max damage
-			for 
-				(var i = 0; i < roundmatk.length; i++) {
-				if (roundmatk[i] > 99999) {
-					roundmatk[i] = 99999;
-				} else {}
-			}
-			
-			// min damage
-			
-			for (var i = 0; i < roundmatk.length; i++) {
-				if (roundmatk[i] < 1) {
-					roundmatk[i] = 1;
-				} else {}
-			}
-
-			$("#mindmg").html(Math.floor(roundmatk[0]));
-			$("#maxdmg").html(Math.floor(roundmatk[1]));
-			$("#avgdmg").html(Math.floor(roundmatk[2]));
-			
-			//	ACCURACY
-			
-			magicAccuracy(totalint, totalluk, m, d);
-			$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
-				monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
-				"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
-				"</b> avoidabillity.");
-
-			break;
-			case "6": // heal
-
-			$("#results").show();
-			
-			// RESET BECAUSE UNDEAD ONLY
-			
-			damagetype = 4;
-			var m = parseInt($("#unmonster").val());
-			var d = parseInt(monsterlist[m].level) - parseInt($("#level").val());
-			if (d < 0) {
-				d = 0;
-			}
-			def = monsterlist[m].mdef + "</b> magic defense";
-			
-			//  MAGICIAN HEAL (GLOBAL DECLARE)
-			
-			totalint = parseInt($("#int").val());
-			totalluk = parseInt($("#luk").val());
-			totalmagic = parseInt($("#totalmagic").val());
-			heallevel = eval($("#heallevel option:selected").val());
-			monsteramount = eval($("#monsteramount option:selected").val());
-			
-			// DAMAGE
-			
-			var mobamount = [48 / 48, 38 / 48, 33 / 48, 30 / 48, 28 / 48];
-			mobamount = mobamount[monsteramount]
-				
-				// min-max-avg dmg 
-			var mindmg = ((totalint * 1.2 + totalluk * 4) * totalmagic / 1000 *	heallevel * mobamount);
-			var maxdmg = ((totalint * 4.8 + totalluk * 4) * totalmagic / 1000 *	heallevel * mobamount);
-
-			checkWeakness(damagetype, m);
-			
-			// def reduxx + avg
-			
-			maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d))
-			mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d))
-			avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
-			
-			// declare array
-			
-			var roundmatk = [mindmg, maxdmg, avgdmg]
-				
-				// max damage
-			for 
-				(var i = 0; i < 3; i++) {
-				if (roundmatk[i] > 99999) {
-					roundmatk[i] = 99999;
-				} else {}
-			}
-			
-			// min damage
-			
-			for (var i = 0; i < 3; i++) {
-				if (roundmatk[i] < 1) {
-					roundmatk[i] = 1;
-				} else {}
-			}
-
-			$("#mindmg").html(Math.floor(roundmatk[0]));
-			$("#maxdmg").html(Math.floor(roundmatk[1]));
-			$("#avgdmg").html(Math.floor(roundmatk[2]));
-			
-			// ACCURACY
-			
-			magicAccuracy(totalint, totalluk, m, d);
-			$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
-				monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
-				"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
-				"</b> avoidabillity.");
-
-			break;
-			case "7": // lucky7/triple
-			break;
-			case "8": // meso explosion
-			break;
-			default: 
-				console.log('nope');
+			// max damage
+		for 
+			(var i = 0; i < 3; i++) {
+			if (roundmatk[i] > 99999) {
+				roundmatk[i] = 99999;
+			} else {}
 		}
 		
-		generateAdvice(mindmg, avgdmg, m);
+		// min damage
+		
+		for (var i = 0; i < 3; i++) {
+			if (roundmatk[i] < 1) {
+				roundmatk[i] = 1;
+			} else {}
+		}
 
+		$("#mindmg").html(Math.floor(roundmatk[0]));
+		$("#maxdmg").html(Math.floor(roundmatk[1]));
+		$("#avgdmg").html(Math.floor(roundmatk[2]));
+		
+		// ACCURACY
+		
+		magicAccuracy(totalint, totalluk, m, d);
+		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
+			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
+			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
+			"</b> avoidabillity.");
+
+		break;
+		case "7": // lucky7/triple
+		break;
+		case "8": // meso explosion
+		break;
+		default: 
+			console.log('nope');
+			console.log(job)
 	}
+	
+	generateAdvice(mindmg, avgdmg, m);
+
+}
 	
 // Magic accuracy
 
