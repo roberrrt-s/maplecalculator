@@ -1,3 +1,10 @@
+/*  
+    - Ultimate MapleStory Calculator (pre-BB) -
+    - Written and designed by Robert Spier -
+    - This contents of this file have been provided by Gi from MapleLegends -
+*/
+
+
 var monsterlist = [
     {text: "Jafel's mom", hp: 9999999999, level: 999, mdef: 999, wdef: 999, avoid: 999, undead: 1, elem: "F1H1L1S1I1"}, 
     {text: "Snail", hp: 8, level: 1, mdef: 0, wdef: 0, avoid: 0, undead: 0, elem: ""}, 
