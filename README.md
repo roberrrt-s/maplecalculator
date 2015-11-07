@@ -6,6 +6,7 @@ A pre-bb calculator for MapleStory characters
 - General archer damage calculation
 - General thief damage calculation
 - General warrior damage calculation
+- General pirate damage calculation
 - Lucky seven / triple throw skill damage calculation
 
 ## About
