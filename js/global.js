@@ -3,7 +3,7 @@
 	- Written and designed by Robert Spier -
 */
 
-window.onload = function() {
+$(document).ready(function() {
 
 	// Button configuration
 
@@ -54,7 +54,7 @@ window.onload = function() {
 	  minimumResultsForSearch: Infinity
 	});
 
-};
+});
 
 // hideAll();
 
