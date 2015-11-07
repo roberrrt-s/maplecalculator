@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" xtent="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is the ultimate MapleStory calculator regarding damage, avoidabillity, accuracy etc.">
+    <link rel="shortcut icon" href="media/favicon.ico">
+    <meta name="author" content="Robert Spier">
+    <title>Ultimate Maplestory Calculator</title>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/select2.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <form name="calculator" id="calculator">
+        <fieldset id="job">
+          <legend>Pick your job / specifics</legend>
+          <select name="jobselect" style="width: 75%" id="jobselect" class="jobselect-data">
+            <option></option>
+            <optgroup label="Warrior">
+              <option value="1">Normal damage</option>
+            </optgroup>
+            <optgroup label="Bowman">
+              <option value="2">Normal damage</option>
+            </optgroup>
+            <optgroup label="Thief">
+              <option value="3">Normal damage</option>
+              <option value="7">Lucky Seven / Triple Throw damage</option>
+              <option value="8">Meso Explosion damage</option>
+            </optgroup>
+            <optgroup label="Pirate">
+              <option value="4">Normal damage</option>
+            </optgroup>
+            <optgroup label="Magician">
+              <option value="5">Normal damage</option>
+              <option value="6">Heal damage</option>
+            </optgroup>
+          </select>
+        </fieldset>
+        <fieldset id="stats">
+          <legend>Enter your stats</legend>
+          <!-- Entering your regular information,-->
+          <label for="level" class="level">Your level</label>
+          <input type="number" min="1" max="200" value="0" id="level" class="level">
+          <label for="int" class="int">Enter your INT</label>
+          <input type="number" value="0" id="int" class="int">
+          <label for="str" class="str">Enter your STR</label>
+          <input type="number" value="0" id="str" class="str">
+          <label for="dex" class="dex">Enter your DEX</label>
+          <input type="number" value="0" id="dex" class="dex">
+          <label for="luk" class="luk">Enter your LUK</label>
+          <input type="number" value="0" id="luk" class="luk">
+          <label for="minluk" class="minrange">Enter your minimal range</label>
+          <input type="number" value="0" id="minrange" class="minrange">
+          <label for="maxluk" class="maxrange">Enter your maximal range</label>
+          <input type="number" value="0" id="maxrange" class="maxrange">
+          <label for="totalmagic" class="totalmagic">Total Magic</label>
+          <input type="number" value="0" id="totalmagic" class="totalmagic">
+          <div class="damagetype">
+            <label for="damagetype">Element of attack</label>
+            <select name="damagetype" style="width: 75%" id="damagetype" class="damagetype-data">
+              <option value="0" selected>No element</option>
+              <option value="1">Fire</option>
+              <option value="2">Ice</option>
+              <option value="3">Poison</option>
+              <option value="4">Holy</option>
+              <option value="5">Lightning</option>
+            </select>
+          </div>
+          <!-- Human, give me your accuracy-->
+          <label for="acc" class="acc">Enter your Accuracy</label>
+          <input type="number" value="0" id="acc" class="acc">
+        </fieldset>
+        <fieldset id="archerskills">
+          <legend>Archer skill variables</legend>
+          <!-- Variables for bowman damage-->
+          <p>Test</p>
+        </fieldset>
+        <fieldset id="magicianskills">
+          <legend>Magician skill variables</legend>
+          <!-- Variables for magician damage-->
+          <label for="skillattack">Skill Magic Attack</label>
+          <input type="number" name="skillattack" value="0" maxlength="5" size="10" id="skillattack">
+          <label for="skillmastery">Skill Mastery</label>
+          <select name="skillmastery" id="skillmastery" style="width: 75%" class="skillmastery">
+            <option value="0.15">15%</option>
+            <option value="0.2">20%</option>
+            <option value="0.25">25%</option>
+            <option value="0.3">30%</option>
+            <option value="0.35">35%</option>
+            <option value="0.4">40%</option>
+            <option value="0.45">45%</option>
+            <option value="0.5">50%</option>
+            <option value="0.55">55%</option>
+            <option value="0.6" selected>60%</option>
+          </select>
+          <label for="elementamp">Element Amplification</label>
+          <select name="elementamplification" id="elementamp" style="width: 75%" class="elementamp">
+            <option value="1" selected>0%</option>
+            <option value="1.07">7%</option>
+            <option value="1.09">9%</option>
+            <option value="1.11">11%</option>
+            <option value="1.13">13%</option>
+            <option value="1.14">14%</option>
+            <option value="1.15">15%</option>
+            <option value="1.16">16%</option>
+            <option value="1.17">17%</option>
+            <option value="1.18">18%</option>
+            <option value="1.19">19%</option>
+            <option value="1.21">21%</option>
+            <option value="1.23">23%</option>
+            <option value="1.25">25%</option>
+            <option value="1.27">27%</option>
+            <option value="1.29">29%</option>
+            <option value="1.31">31%</option>
+            <option value="1.33">33%</option>
+            <option value="1.35">35%</option>
+            <option value="1.37">37%</option>
+            <option value="1.4">40%</option>
+          </select>
+          <label for="elemwandbonus">Elemental Wand Bonus</label>
+          <select name="elemwandbonus" id="elemwandbonus" style="width: 75%" class="elemwandbonus">
+            <option value="1" selected>0% (no bonus)</option>
+            <option value="1.1">10% (minor bonus)</option>
+            <option value="1.25">25% (major bonus)</option>
+          </select>
+        </fieldset>
+        <fieldset id="healskills">
+          <legend>Heal variables</legend>
+          <label for="heallevel">Heal level</label>
+          <select name="heallevel" id="heallevel" style="width: 75%" class="heallevel">
+            <option value="0.1">1 test</option>
+            <option value="0.2">2</option>
+            <option value="0.3">3</option>
+            <option value="0.4">4</option>
+            <option value="0.5">5</option>
+            <option value="0.6">6</option>
+            <option value="0.7">7</option>
+            <option value="0.8">8</option>
+            <option value="0.9">9</option>
+            <option value="1">10</option>
+            <option value="1.1">11</option>
+            <option value="1.2">12</option>
+            <option value="1.3">13</option>
+            <option value="1.4">14</option>
+            <option value="1.5">15</option>
+            <option value="1.6">16</option>
+            <option value="1.7">17</option>
+            <option value="1.8">18</option>
+            <option value="1.9">19</option>
+            <option value="2">20</option>
+            <option value="2.1">21</option>
+            <option value="2.2">22</option>
+            <option value="2.3">23</option>
+            <option value="2.4">24</option>
+            <option value="2.5">25</option>
+            <option value="2.6">26</option>
+            <option value="2.7">27</option>
+            <option value="2.8">28</option>
+            <option value="2.9">29</option>
+            <option value="3" selected>30</option>
+          </select>
+          <label for="monsteramount">Amount of monsters</label>
+          <select name="amount" id="monsteramount" style="width: 75%" class="monsteramount">
+            <option value="0" selected>1</option>
+            <option value="1">2</option>
+            <option value="2">3</option>
+            <option value="3">4</option>
+            <option value="4">5</option>
+          </select>
+          <label for="unmonster">Select the monster</label>
+          <select id="unmonster" style="width: 75%" class="undeadlist-list"></select>
+        </fieldset>
+        <fieldset id="monsterselect">
+          <legend>Select the monster</legend>
+          <select id="monster" style="width: 75%" class="monsterdata-list"></select>
+        </fieldset>
+        <button type="button" id="calculatevalues">Calculate variables</button>
+        <button type="button" id="resetvalues">Reset values</button>
+      </form>
+      <form name="results" id="results">
+        <fieldset id="overview">
+          <legend>Overview</legend>
+          <div id="monsterdata"></div>
+          <table id="monsterweakness"><br>
+            <tr>
+              <th>Element</th>
+              <td>Fire:</td>
+              <td>Ice:</td>
+              <td>Poison:</td>
+              <td>Holy:</td>
+              <td>Lightning:</td>
+            </tr>
+            <tr>
+              <th>Monster resistance</th>
+              <th id="firevalue"></th>
+              <th id="icevalue"></th>
+              <th id="poisonvalue"></th>
+              <th id="holyvalue"></th>
+              <th id="lightningvalue"></th>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset id="damage">
+          <legend>Damage calculated</legend>
+          <div id="elembonusdamage"></div>
+          <table id="damagedealt"><br>
+            <tr>
+              <td>Minimal damage</td>
+              <td>Average damage</td>
+              <td>Maximal damage</td>
+            </tr>
+            <tr>
+              <th id="mindmg">-</th>
+              <th id="avgdmg">-</th>
+              <th id="maxdmg">-</th>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset id="accuracy">
+          <legend>Accuracy calculated</legend>
+          <table id="accuracycalculated">
+            <tr> 
+              <td class="currentaccuracy">Your current accuracy</td>
+              <td>Required accuracy for 100% hit</td>
+              <td>Required accuracy to &#62;1% hit</td>
+              <td>Actual chance to hit the monster</td>
+            </tr>
+            <tr>
+              <th id="currentaccuracy" class="currentaccuracy">-</th>
+              <th id="maxaccuracy">-</th>
+              <th id="minaccuracy">-</th>
+              <th id="hitratio">-</th>
+            </tr>
+          </table>
+        </fieldset>
+        <fieldset id="advice">
+          <legend>Advice for grinding</legend>
+          <p id="adviceuser"></p>
+        </fieldset>
+      </form>
+    </div>
+  </body>
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="js/min/data-min.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/min/select2.min.js"></script>
+</html>

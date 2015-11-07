@@ -1,0 +1,57 @@
+body {
+  background-color: #333;
+  font-family: "Source Sans Pro";
+  color: #EEE; }
+
+fieldset {
+  margin: 5px; }
+  fieldset label {
+    float: left;
+    padding: 5px;
+    width: 100%;
+    clear: both; }
+  fieldset input,
+  fieldset select {
+    padding: 5px;
+    float: left;
+    clear: both;
+    width: 35%; }
+
+li {
+  color: #000; }
+
+#calculator {
+  float: left;
+  width: 30%; }
+  @media screen and (max-width: 900px) {
+    #calculator {
+      min-width: 100%; } }
+
+#results {
+  float: right;
+  width: 70%; }
+  @media screen and (max-width: 900px) {
+    #results {
+      float: left;
+      min-width: 100%;
+      margin-top: 10px; } }
+
+#resetit,
+#calculateit {
+  display: block;
+  width: auto;
+  margin: 10px;
+  float: left; }
+
+table {
+  min-width: 100%; }
+
+td,
+th {
+  border: 1px solid #FFF;
+  padding: 5px;
+  margin: 3px;
+  width: 40px; }
+
+.hpadvice {
+  padding-left: 15px; }
