@@ -25,18 +25,18 @@
           <select name="jobselect" style="width: 75%" id="jobselect" class="jobselect-data">
             <option></option>
             <optgroup label="Warrior">
-              <option value="1">Normal damage</option>
+              <option value="1" disabled>Normal damage</option>
             </optgroup>
             <optgroup label="Bowman">
               <option value="2">Normal damage</option>
             </optgroup>
             <optgroup label="Thief">
-              <option value="3">Normal damage</option>
-              <option value="7">Lucky Seven / Triple Throw damage</option>
-              <option value="8">Meso Explosion damage</option>
+              <option value="3" disabled>Normal damage</option>
+              <option value="7" disabled>Lucky Seven / Triple Throw damage</option>
+              <option value="8" disabled>Meso Explosion damage</option>
             </optgroup>
             <optgroup label="Pirate">
-              <option value="4">Normal damage</option>
+              <option value="4" disabled>Normal damage</option>
             </optgroup>
             <optgroup label="Magician">
               <option value="5">Normal damage</option>
@@ -74,16 +74,30 @@
               <option value="5">Lightning</option>
             </select>
           </div>
-          <!-- Human, give me your accuracy-->
+          <!-- Regular accuracy -->
           <label for="acc" class="acc">Enter your Accuracy</label>
           <input type="number" value="0" id="acc" class="acc">
         </fieldset>
         <fieldset id="archerskills">
           <legend>Archer skill variables</legend>
           <!-- Variables for bowman damage-->
-          <p>Test</p>
+          <p>Test - archer</p>
         </fieldset>
-        <fieldset id="magicianskills">
+        <fieldset id="warriorskills">
+          <legend>Warrior skill variables</legend>
+          <!-- Variables for warrior damage-->
+          <p>Test - warrior</p>
+        </fieldset>
+        <fieldset id="pirateskills">
+          <legend>Pirate skill variables</legend>
+          <!-- Variables for pirate damage-->
+          <p>Test - pirate</p>
+        </fieldset>
+        <fieldset id="thiefskills">
+          <legend>Thief skill variables</legend>
+          <!-- Variables for thief damage-->
+          <p>Test - thief</p>
+        </fieldset>        <fieldset id="magicianskills">
           <legend>Magician skill variables</legend>
           <!-- Variables for magician damage-->
           <label for="skillattack">Skill Magic Attack</label>

@@ -56,7 +56,7 @@ $(document).ready(function() {
 
 });
 
-// hideAll();
+hideAll();
 
 // Filter based on jobselection
 
@@ -73,6 +73,7 @@ $("#jobselect").change(function() {
    			$(".acc").show();
 			$(".minrange").show();
 			$(".maxrange").show();
+			$("#warriorskills").show();
    			$("#monsterselect").show();
    			$(".damagetype").show();
 	    break;
@@ -99,6 +100,7 @@ $("#jobselect").change(function() {
    			$(".acc").show();
 			$(".minrange").show();
 			$(".maxrange").show ();
+			$("#thiefskills").show();
    			$(".damagetype").show();
    			$("#monsterselect").show();
 	    break;
@@ -111,6 +113,7 @@ $("#jobselect").change(function() {
    			$(".acc").show();
 			$(".minrange").show();
 			$(".maxrange").show();
+			$("#pirateskills").show();
    			$("#monsterselect").show();
    			$(".damagetype").show();
 	    break;
@@ -134,6 +137,20 @@ $("#jobselect").change(function() {
    			$(".totalmagic").show();
    			$("#healskills").show();
 	    break;
+
+	  	case "7": // lucky7 / triplethrow 
+   			hideAll();
+   			$("#stats").show();
+   			$(".luk").show();
+   			$(".dex").show();
+	    break;
+
+	  	case "8": // meso explosion
+   			hideAll();
+   			$("#stats").show();
+   			$(".luk").show();
+   			$(".dex").show();	
+	    break;              
 
 	  	default:
 	  		hideAll();
@@ -720,6 +737,9 @@ function hideAll() {
 	$("#monsterselect").hide();
 	$("#magicianskills").hide();
 	$("#archerskills").hide();
+	$("#warriorskills").hide();
+	$("#pirateskills").hide();
+	$("#thiefskills").hide();
 	$("#healskills").hide();
 	$("#results").hide();
 	$(".int").hide();
