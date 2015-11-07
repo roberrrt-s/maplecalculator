@@ -1,5 +1,5 @@
 # MapleCalculator
-A pre-bb calculator for MapleStory characters
+A pre-bb calculator for the damage and accuracty of MapleStory characters
 
 ## To do:
 
