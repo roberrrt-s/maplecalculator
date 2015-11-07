@@ -1,5 +1,5 @@
 /*	
-	- Ultimate MapleStory Calculator (v62) -
+	- Ultimate MapleStory Calculator (pre-BB) -
 	- Written and designed by Robert Spier -
 */
 
