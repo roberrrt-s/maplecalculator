@@ -189,7 +189,6 @@ function main() {
 		case "2": // bowmen
 
 		$("#results").show();
-		console.log('i pass hits')
 
 		def = monsterlist[m].wdef + "</b> weapon defense";
 		$(".currentaccuracy").hide();
@@ -306,36 +305,14 @@ function main() {
 		
 		checkWeakness(damagetype, m);
 		
-		// def reduxx + avg
-		
+		// rounding final damage
+
 		maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d));
 		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
 		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
-		
-		// declare array
-		
-		var roundmatk = [mindmg, maxdmg, avgdmg];
 			
-			// max damage
-		for 
-			(var i = 0; i < roundmatk.length; i++) {
-			if (roundmatk[i] > 99999) {
-				roundmatk[i] = 99999;
-			} else {}
-		}
-		
-		// min damage
-		
-		for (var i = 0; i < roundmatk.length; i++) {
-			if (roundmatk[i] < 1) {
-				roundmatk[i] = 1;
-			} else {}
-		}
+		roundDamage(mindmg, maxdmg, avgdmg)
 
-		$("#mindmg").html(Math.floor(roundmatk[0]));
-		$("#maxdmg").html(Math.floor(roundmatk[1]));
-		$("#avgdmg").html(Math.floor(roundmatk[2]));
-		
 		//	ACCURACY
 		
 		magicAccuracy(totalint, totalluk, m, d);
@@ -372,7 +349,8 @@ function main() {
 		var mobamount = [48 / 48, 38 / 48, 33 / 48, 30 / 48, 28 / 48];
 		mobamount = mobamount[monsteramount]
 			
-			// min-max-avg dmg 
+		// min-max-avg dmg 
+
 		var mindmg = ((totalint * 1.2 + totalluk * 4) * totalmagic / 1000 *	heallevel * mobamount);
 		var maxdmg = ((totalint * 4.8 + totalluk * 4) * totalmagic / 1000 *	heallevel * mobamount);
 
@@ -384,29 +362,9 @@ function main() {
 		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d))
 		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
 		
-		// declare array
-		
-		var roundmatk = [mindmg, maxdmg, avgdmg]
-			
-			// max damage
-		for 
-			(var i = 0; i < 3; i++) {
-			if (roundmatk[i] > 99999) {
-				roundmatk[i] = 99999;
-			} else {}
-		}
-		
-		// min damage
-		
-		for (var i = 0; i < 3; i++) {
-			if (roundmatk[i] < 1) {
-				roundmatk[i] = 1;
-			} else {}
-		}
+		// round dmg
 
-		$("#mindmg").html(Math.floor(roundmatk[0]));
-		$("#maxdmg").html(Math.floor(roundmatk[1]));
-		$("#avgdmg").html(Math.floor(roundmatk[2]));
+		roundDamage(mindmg, maxdmg, avgdmg)
 		
 		// ACCURACY
 		
@@ -429,12 +387,40 @@ function main() {
 	generateAdvice(mindmg, avgdmg, m);
 
 }
+
+// Round and display normal damage
+
+function roundDamage(mindmg, maxdmg, avgdmg) {
 	
+	// declare array
+	
+	var roundmatk = [mindmg, maxdmg, avgdmg];
+		
+	// max damage
+
+	for (var i = 0; i < roundmatk.length; i++) {
+		if (roundmatk[i] > 99999) {
+			roundmatk[i] = 99999;
+		} else {}
+	}
+	
+	// min damage
+	
+	for (var i = 0; i < roundmatk.length; i++) {
+		if (roundmatk[i] < 1) {
+			roundmatk[i] = 1;
+		} else {}
+	}
+
+	$("#mindmg").html(Math.floor(roundmatk[0]));
+	$("#maxdmg").html(Math.floor(roundmatk[1]));
+	$("#avgdmg").html(Math.floor(roundmatk[2]));
+
+}
+
 // Magic accuracy
 
-
 function magicAccuracy(totalint, totalluk, m, d) {
-
 	var currentaccuracy = Math.floor(totalint / 10) + Math.floor(totalluk / 10);
 	var maxaccuracy = Math.floor((monsterlist[m].avoid + 1) * (1 + 0.04 * d));
 	var minaccuracy = Math.floor(0.41 * maxaccuracy);
@@ -494,7 +480,6 @@ function globalAccuracy(d, acc, m) {
 }
 
 // Checking for the monsters elemental status
-
 
 function checkWeakness(damagetype, m) {
 		
