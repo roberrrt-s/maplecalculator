@@ -82,18 +82,30 @@
           <legend>Archer skill variables</legend>
           <!-- Variables for bowman damage-->
           <label for="a-critical">Skill Mastery</label>
-          <select name="skillmastery" id="skillmastery" style="width: 75%" class="skillmastery">
-            <option value="0.15">15%</option>
-            <option value="0.2">20%</option>
-            <option value="0.25">25%</option>
-            <option value="0.3">30%</option>
-            <option value="0.35">35%</option>
-            <option value="0.4">40%</option>
-            <option value="0.45">45%</option>
-            <option value="0.5">50%</option>
-            <option value="0.55">55%</option>
-            <option value="0.6" selected>60%</option>
-            </fieldset>
+          <select name="a-critical" id="a-critical" style="width: 75%" class="a-critical">
+            <option value="x" selected>No Critical Shot</option>
+            <option value="0">1</option>
+            <option value="1">2</option>
+            <option value="2">3</option>
+            <option value="3">4</option>
+            <option value="4">5</option>
+            <option value="5">6</option>
+            <option value="6">7</option>
+            <option value="7">8</option>
+            <option value="8">9</option>
+            <option value="9">10</option>
+            <option value="10">11</option>
+            <option value="11">12</option>
+            <option value="12">13</option>
+            <option value="13">14</option>
+            <option value="14">15</option>
+            <option value="15">16</option>
+            <option value="16">17</option>
+            <option value="17">18</option>
+            <option value="18">19</option>
+            <option value="19">20</option>
+          </select>
+        </fieldset>
         <fieldset id="warriorskills">
           <legend>Warrior skill variables</legend>
           <!-- Variables for warrior damage-->
@@ -129,7 +141,7 @@
           </select>
           <label for="elementamp">Element Amplification</label>
           <select name="elementamplification" id="elementamp" style="width: 75%" class="elementamp">
-            <option value="1" selected>0%</option>
+            <option value="1" selected>No Element Amplification</option>
             <option value="1.07">7%</option>
             <option value="1.09">9%</option>
             <option value="1.11">11%</option>
@@ -285,18 +297,22 @@
               <th id="avgdmg">-</th>
               <th id="maxdmg">-</th>
             </tr>
-            <div id="critdamagechance"></div>
-            <table id="damagedealt"><br>
-              <tr>
-                <td>Minimal critical damage</td>
-                <td>Average critical damage</td>
-                <td>Maximal critical damage</td>
-              </tr>
-              <tr>
-                <th id="mincritdmg">-</th>
-                <th id="avgcritdmg">-</th>
-                <th id="maxcritdmg">-</th>
-              </tr>
+          </table>
+        </fieldset>
+        <fieldset id="critdamage">
+          <legend>Critical damage calculated</legend>
+          <div id="critdamagechance"></div>
+          <table id="critdamagedealt"><br>
+            <tr>
+              <td>Minimal critical damage</td>
+              <td>Average critical damage</td>
+              <td>Maximal critical damage</td>
+            </tr>
+            <tr>
+              <th id="mincritdmg">-</th>
+              <th id="avgcritdmg">-</th>
+              <th id="maxcritdmg">-</th>
+            </tr>
           </table>
         </fieldset>
         <fieldset id="accuracy">
@@ -324,7 +340,7 @@
     </div>
   </body>
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="js/min/data-min.js"></script>
+  <script src="js/data.js"></script>
   <script src="js/global.js"></script>
   <script src="js/min/select2.min.js"></script>
 </html>

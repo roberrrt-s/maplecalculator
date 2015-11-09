@@ -4,7 +4,6 @@
     - This contents of this file have been provided by Gi from MapleLegends -
 */
 
-
 var monsterlist = [
     {text: "Jafel's mom", hp: 9999999999, level: 999, mdef: 999, wdef: 999, avoid: 999, undead: 1, elem: "F1H1L1S1I1"}, 
     {text: "Snail", hp: 8, level: 1, mdef: 0, wdef: 0, avoid: 0, undead: 0, elem: ""}, 
@@ -921,4 +920,19 @@ for (var i = 0; i < monsterlist.length; i++) {
     if(monsterlist[i].undead === 1) {
         undeadlist.push(monsterlist[i]);
     }
+}
+
+var sharpeyesdata = [];
+
+for (var i = 0, j = 1; i < 30; i++) {
+
+    if(i % 2 == 0) {
+        j += 0.01;
+    }
+
+    sharpeyesdata[i] = {
+        damage: Number((1.11 + i / 100).toFixed(2)),
+        rate: Number(j.toFixed(2))
+    }
+
 }

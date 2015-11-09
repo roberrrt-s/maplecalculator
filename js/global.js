@@ -34,6 +34,9 @@ $(document).ready(function() {
 	$(".elemwandbonus").select2({
 		minimumResultsForSearch: Infinity
 	});
+	$(".a-critical").select2({
+		minimumResultsForSearch: Infinity
+	});	
 	$(".sharpeyes").select2({
 		minimumResultsForSearch: Infinity
 	});	
@@ -150,7 +153,7 @@ $("#jobselect").change(function() {
 
 var multiply, maxdmg, mindmg, avgdmg, elemwandbonus, elementamp, skillmastery,
 	skillattack, acc, totalmagic, totalint, totalluk, totalstr, totaldex, fire,
-	ice, poison, holy, lightning, sharpeyes;
+	ice, poison, holy, lightning, critrate = 0, critdamage = 0;
 
 // Main calculating function
 
@@ -217,6 +220,7 @@ function main() {
 		// ACCURACY
 		
 		globalAccuracy(d, acc, m);
+
 		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
 			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
 			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
@@ -322,13 +326,16 @@ function main() {
 		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
 		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
 		
+		var sharp = $('#sharpeyes option:selected').val();
 
+		applyCritDamage(0, 0, sharp, mindmg, avgdmg, maxdmg);
 
-		roundDamage(mindmg, maxdmg, avgdmg)
+		roundDamage(mindmg, maxdmg, avgdmg, false)
 
 		//	ACCURACY
 		
 		magicAccuracy(totalint, totalluk, m, d);
+
 		$('#monsterdata').html("<b>" + monsterlist[m].text + "</b> is a level <b>" +
 			monsterlist[m].level + "</b> monster with <b>" + monsterlist[m].hp +
 			"</b> HP. It has <b>" + def + " and  <b>" + monsterlist[m].avoid +
@@ -377,7 +384,7 @@ function main() {
 		
 		// round dmg
 
-		roundDamage(mindmg, maxdmg, avgdmg)
+		roundDamage(mindmg, maxdmg, avgdmg, false)
 		
 		// ACCURACY
 		
@@ -400,9 +407,43 @@ function main() {
 
 }
 
+// Apply critical damage
+
+function applyCritDamage(a, t, s, min, avg, max) {
+
+	if(a == 0 && t == 0 && s == "x") {
+		$("#critdamagechance").html("You are not applying any critical damage");
+		$("#mincritdmg").html("-");
+		$("#avgcritdmg").html("-");
+		$("#maxcritdmg").html("-");		
+	}
+
+	else {
+
+		console.log(critrate);
+		console.log(sharpeyesdata[s].rate)
+
+		critdamage += sharpeyesdata[s].damage
+		critrate += sharpeyesdata[s].rate
+
+		min *= critdamage;
+		avg *= critdamage;
+		max *= critdamage;
+
+		$("#critdamagechance").html("You have a " + Math.round((critrate - 1) * 100) + "% chance to do a critical hit");
+
+		roundDamage(min, avg, max, true)
+
+		critdamage = 0;
+		critrate = 0;
+
+	}
+
+}
+
 // Round and display normal damage
 
-function roundDamage(mindmg, maxdmg, avgdmg) {
+function roundDamage(mindmg, maxdmg, avgdmg, crit) {
 	
 	// declare array
 	
@@ -424,10 +465,15 @@ function roundDamage(mindmg, maxdmg, avgdmg) {
 		} else {}
 	}
 
-	$("#mindmg").html(Math.floor(roundmatk[0]));
-	$("#maxdmg").html(Math.floor(roundmatk[1]));
-	$("#avgdmg").html(Math.floor(roundmatk[2]));
-
+	if(crit) {
+		$("#mindmg").html(Math.floor(roundmatk[0]));
+		$("#maxdmg").html(Math.floor(roundmatk[1]));
+		$("#avgdmg").html(Math.floor(roundmatk[2]));
+	}
+	else {
+		$("#mincritdmg").html(Math.floor(roundmatk[0]));
+		$("#maxcritdmg").html(Math.floor(roundmatk[1]));
+		$("#avgcritdmg").html(Math.floor(roundmatk[2]));	}
 }
 
 // Magic accuracy
