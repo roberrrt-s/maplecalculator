@@ -3,6 +3,7 @@ A pre-bb calculator for the damage and accuracy of MapleStory characters
 
 ## To do:
 
+- Enable party-based skill damage calculation (SE)
 - General archer damage calculation
 - General thief damage calculation
 - General warrior damage calculation
