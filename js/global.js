@@ -34,6 +34,9 @@ $(document).ready(function() {
 	$(".elemwandbonus").select2({
 		minimumResultsForSearch: Infinity
 	});
+	$(".sharpeyes").select2({
+		minimumResultsForSearch: Infinity
+	});	
 	$(".heallevel").select2({
 		minimumResultsForSearch: Infinity
 	});
@@ -60,6 +63,7 @@ $("#jobselect").change(function() {
 			$(".minrange").show();
 			$(".maxrange").show();
 			$("#warriorskills").show();
+			$("#partyskills").show();
 			$("#monsterselect").show();
 			$(".damagetype").show();
 			break;
@@ -72,6 +76,7 @@ $("#jobselect").change(function() {
 			$(".minrange").show();
 			$(".maxrange").show();
 			$("#archerskills").show();
+			$("#partyskills").show();
 			$("#monsterselect").show();
 			$(".damagetype").show();
 			break;
@@ -85,6 +90,7 @@ $("#jobselect").change(function() {
 			$(".minrange").show();
 			$(".maxrange").show();
 			$("#thiefskills").show();
+			$("#partyskills").show();
 			$(".damagetype").show();
 			$("#monsterselect").show();
 			break;
@@ -97,6 +103,7 @@ $("#jobselect").change(function() {
 			$(".minrange").show();
 			$(".maxrange").show();
 			$("#pirateskills").show();
+			$("#partyskills").show();
 			$("#monsterselect").show();
 			$(".damagetype").show();
 			break;
@@ -107,6 +114,7 @@ $("#jobselect").change(function() {
 			$(".luk").show();
 			$(".totalmagic").show();
 			$("#magicianskills").show();
+			$("#partyskills").show();
 			$("#monsterselect").show();
 			$(".damagetype").show();
 			break;
@@ -116,6 +124,7 @@ $("#jobselect").change(function() {
 			$(".int").show();
 			$(".luk").show();
 			$(".totalmagic").show();
+			$("#partyskills").show();
 			$("#healskills").show();
 			break;
 		case "7": // lucky7 / triplethrow 
@@ -123,12 +132,14 @@ $("#jobselect").change(function() {
 			$("#stats").show();
 			$(".luk").show();
 			$(".dex").show();
+			$("#partyskills").show();
 			break;
 		case "8": // meso explosion
 			hideAll();
 			$("#stats").show();
 			$(".luk").show();
 			$(".dex").show();
+			$("#partyskills").show();
 			break;
 		default:
 			hideAll();
@@ -139,7 +150,7 @@ $("#jobselect").change(function() {
 
 var multiply, maxdmg, mindmg, avgdmg, elemwandbonus, elementamp, skillmastery,
 	skillattack, acc, totalmagic, totalint, totalluk, totalstr, totaldex, fire,
-	ice, poison, holy, lightning;
+	ice, poison, holy, lightning, sharpeyes;
 
 // Main calculating function
 
@@ -310,7 +321,9 @@ function main() {
 		maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d));
 		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
 		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
-			
+		
+
+
 		roundDamage(mindmg, maxdmg, avgdmg)
 
 		//	ACCURACY
@@ -358,8 +371,8 @@ function main() {
 		
 		// def reduxx + avg
 		
-		maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d))
-		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d))
+		maxdmg = (maxdmg - monsterlist[m].mdef * 0.5 * (1 + 0.01 * d));
+		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
 		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
 		
 		// round dmg
@@ -380,8 +393,7 @@ function main() {
 		case "8": // meso explosion
 		break;
 		default: 
-			console.log('nope');
-			console.log(job)
+			console.error("You shouldn't be doing stuff like this.")	
 	}
 	
 	generateAdvice(mindmg, avgdmg, m);
@@ -727,6 +739,7 @@ function hideAll() {
 	$("#warriorskills").hide();
 	$("#pirateskills").hide();
 	$("#thiefskills").hide();
+	$("#partyskills").hide();
 	$("#healskills").hide();
 	$("#results").hide();
 	$(".int").hide();
@@ -745,6 +758,7 @@ function hideAll() {
 function resetAll() {
 	var def = undefined;
 	$('.jobselect-data').select2('val', "Choose")
+	$('.sharpeyes').select2('val', 'x')
 	$(".damagetype-data").select2('val', 0)
 	$("#monsterdata").html("");
 	$("#firevalue").html("-");
@@ -756,6 +770,9 @@ function resetAll() {
 	$("#mindmg").html("-");
 	$("#avgdmg").html("-");
 	$("#maxdmg").html("-");
+	$("#mincritdmg").html("-");
+	$("#avgcritdmg").html("-");
+	$("#maxcritdmg").html("-");	
 	$("#currentaccuracy").html("-");
 	$("#maxaccuracy").html("-");
 	$("#minaccuracy").html("-");
