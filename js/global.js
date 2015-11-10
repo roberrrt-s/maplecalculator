@@ -326,9 +326,11 @@ function main() {
 		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
 		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
 		
-		var sharp = $('#sharpeyes option:selected').val();
+		// Applying critical hits if they 
 
-		applyCritDamage(0, 0, sharp, mindmg, avgdmg, maxdmg);
+		applyCritDamage(mindmg, avgdmg, maxdmg);
+
+		// Rounding damage to 1-99999
 
 		roundDamage(mindmg, maxdmg, avgdmg, false)
 
@@ -382,7 +384,11 @@ function main() {
 		mindmg = (mindmg - monsterlist[m].mdef * 0.6 * (1 + 0.01 * d));
 		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
 		
-		// round dmg
+		// Applying critical hits if they 
+
+		applyCritDamage(mindmg, avgdmg, maxdmg);
+
+		// Rounding damage to 1-99999
 
 		roundDamage(mindmg, maxdmg, avgdmg, false)
 		
@@ -409,9 +415,24 @@ function main() {
 
 // Apply critical damage
 
-function applyCritDamage(a, t, s, min, avg, max) {
+function applyCritDamage(min, avg, max) {
 
-	if(a == 0 && t == 0 && s == "x") {
+	var s = $('#sharpeyes option:selected').val();
+	var c, d;
+
+	if(job === "2") {
+		c = $('#critshot option:selected').val();
+		d = critshot[c]
+	}
+	else if(job === "3") {
+		c = $('#critthrow option:selected').val();
+		d = critthrow[c]
+	}
+	else {
+		d = 0;
+	}
+
+	if(c == 0 && s == "x") {
 		$("#critdamagechance").html("You are not applying any critical damage");
 		$("#mincritdmg").html("-");
 		$("#avgcritdmg").html("-");
@@ -420,28 +441,25 @@ function applyCritDamage(a, t, s, min, avg, max) {
 
 	else {
 
-		if(a > 0) {
-			critdamage += critshot[a];
-			critrate += critshot[a];
+		if(d > 0) {
+			critdamage += (d.damage - 1);
+			critrate += (d.rate - 1);
 		}
-		else if(t > 0) {
-			critdamage += critthrow[t];
-			critrate += critthrow[t];
+		if(s > 0) {
+			critdamage += (sharpeyesdata[s].damage - 1);
+			critrate += sharpeyesdata[s].rate;
 		}
 
 		console.log(critrate);
 		console.log(critdamage)
 
-		critdamage += sharpeyesdata[s].damage
-		critrate += sharpeyesdata[s].rate
-
-		min *= critdamage;
-		avg *= critdamage;
-		max *= critdamage;
+		min *= (critdamage + 1);
+		avg *= (critdamage + 1);
+		max *= (critdamage + 1);
 
 		$("#critdamagechance").html("You have a <b>" + Math.round((critrate - 1) * 100) + "%</b> chance to do a critical hit");
 
-		roundDamage(min, avg, max, true)
+		roundDamage(min, max, avg, true)
 
 		critdamage = 0;
 		critrate = 0;
@@ -474,7 +492,7 @@ function roundDamage(mindmg, maxdmg, avgdmg, crit) {
 		} else {}
 	}
 
-	if(crit) {
+	if(!crit) {
 		$("#mindmg").html(Math.floor(roundmatk[0]));
 		$("#maxdmg").html(Math.floor(roundmatk[1]));
 		$("#avgdmg").html(Math.floor(roundmatk[2]));
