@@ -922,10 +922,6 @@ for (var i = 0; i < monsterlist.length; i++) {
     }
 }
 
-function roundToTwo(num) {    
-    return +(Math.round(num + "e+2")  + "e-2");
-}
-
 var sharpeyesdata = [];
 
 for (var i = 0, j = 1; i < 30; i++) {
@@ -943,7 +939,21 @@ for (var i = 0, j = 1; i < 30; i++) {
 
 var critshot = [];
 
+for (var i = 0, j = 1.10; i < 20; i++) {
 
+    if(i < 10) {
+        j += 0.02
+    }
+    else {
+        j += 0.01
+    }
+
+    critshot[i] = {
+        damage: roundToTwo(1.05 + ((i / 100) * 5)),
+        rate: roundToTwo(j)
+    }
+
+}
 
 var critthrow = [];
 
@@ -954,4 +964,8 @@ for (var i = 0; i < 30; i++) {
         rate: roundToTwo(1.21 + (i / 100))
     }
 
+}
+
+function roundToTwo(num) {    
+    return +(Math.round(num + "e+2")  + "e-2");
 }

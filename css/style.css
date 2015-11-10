@@ -21,7 +21,8 @@ fieldset {
     padding: 5px;
     float: left;
     clear: both;
-    width: 35%; }
+    width: 35%;
+    margin-right: 5px; }
 
 li {
   color: #000; }

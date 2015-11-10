@@ -183,8 +183,12 @@ function main() {
 		// WARRIOR (GLOBAL DECLARE)
 		
 		acc = parseInt($("#acc").val());
+		totalstr = parse
 		
 		// DAMAGE
+
+		mindmg = parseInt($("#minrange").val());
+		maxdmg = parseInt($("#maxrange").val());
 
 		// elemental multiplier
 		
@@ -209,8 +213,11 @@ function main() {
 		
 		// ARCHER (GLOBAL DECLARE)
 		
+		totalstr = parseInt($("str").val());
+		totaldex = parseInt($("dex").val());
 		acc = parseInt($("#acc").val());
-		
+
+
 		// DAMAGE
 
 		// elemental multiplier
@@ -236,7 +243,7 @@ function main() {
 		// THIEF (GLOBAL DECLARE)
 		
 		acc = parseInt($("#acc").val());
-		
+
 		// DAMAGE
 		
 		// elemental multiplier
@@ -418,7 +425,7 @@ function main() {
 function applyCritDamage(min, avg, max) {
 
 	var s = $('#sharpeyes option:selected').val();
-	var c, d;
+	var c = 0, d;
 
 	if(job === "2") {
 		c = $('#critshot option:selected').val();
@@ -449,9 +456,6 @@ function applyCritDamage(min, avg, max) {
 			critdamage += (sharpeyesdata[s].damage - 1);
 			critrate += sharpeyesdata[s].rate;
 		}
-
-		console.log(critrate);
-		console.log(critdamage)
 
 		min *= (critdamage + 1);
 		avg *= (critdamage + 1);
@@ -527,6 +531,7 @@ function magicAccuracy(totalint, totalluk, m, d) {
 // Normal accuracy
 
 function globalAccuracy(d, acc, m) {
+
 	var hitratio = acc / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - 1;
 	hitratio = Math.round(hitratio * 100);
 	var outcomemin = 0;
@@ -545,8 +550,7 @@ function globalAccuracy(d, acc, m) {
 	// min
 	
 	for (var i = 1; outcomemin < 100; i++) {
-		outcomemin = i / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - (1 * 0.05 * (d -
-			5));
+		outcomemin = i / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - (1 * 0.05 * (d - 5));
 		outcomemin = Math.round(outcomemin * 100);
 		var maxaccuracy = i;
 	}
@@ -554,14 +558,14 @@ function globalAccuracy(d, acc, m) {
 	// max
 	
 	for (var i = 1; outcomemax < 1; i++) {
-		outcomemax = i / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - (1 * 0.05 * (d -
-			5));
+		outcomemax = i / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - (1 * 0.05 * (d - 5));
 		outcomemax = Math.round(outcomemax * 100);
 		var minaccuracy = i;
 	}
 	$("#maxaccuracy").html(maxaccuracy);
 	$("#minaccuracy").html(minaccuracy);
 	$("#hitratio").html(hitratio);
+
 }
 
 // Checking for the monsters elemental status
