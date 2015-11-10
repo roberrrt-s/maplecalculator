@@ -420,8 +420,17 @@ function applyCritDamage(a, t, s, min, avg, max) {
 
 	else {
 
+		if(a > 0) {
+			critdamage += critshot[a];
+			critrate += critshot[a];
+		}
+		else if(t > 0) {
+			critdamage += critthrow[t];
+			critrate += critthrow[t];
+		}
+
 		console.log(critrate);
-		console.log(sharpeyesdata[s].rate)
+		console.log(critdamage)
 
 		critdamage += sharpeyesdata[s].damage
 		critrate += sharpeyesdata[s].rate
@@ -430,7 +439,7 @@ function applyCritDamage(a, t, s, min, avg, max) {
 		avg *= critdamage;
 		max *= critdamage;
 
-		$("#critdamagechance").html("You have a " + Math.round((critrate - 1) * 100) + "% chance to do a critical hit");
+		$("#critdamagechance").html("You have a <b>" + Math.round((critrate - 1) * 100) + "%</b> chance to do a critical hit");
 
 		roundDamage(min, avg, max, true)
 
