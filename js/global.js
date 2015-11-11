@@ -486,7 +486,13 @@ function applyCritDamage(min, avg, max, job) {
 			critrate += (e.rate - 1);
 		}
 		if(s > 0) {
-			critdamage += (sharpeyesdata[s].damage - 1);
+			if(job === "5" || "6") {
+				critdamage += (sharpeyesdata[s].damage);
+				console.log('heal or m.atk')
+			}
+			else {
+				critdamage += (sharpeyesdata[s].damage - 1);
+			}
 			critrate += (sharpeyesdata[s].rate - 1);
 		}
 
