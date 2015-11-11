@@ -172,6 +172,8 @@ function main() {
 		d = 0;
 	}
 
+	console.log(d)
+
 	switch(job) {
 
 		case "1": // warrior
@@ -183,7 +185,6 @@ function main() {
 		// WARRIOR (GLOBAL DECLARE)
 		
 		acc = parseInt($("#acc").val());
-		totalstr = parse
 		
 		// DAMAGE
 
@@ -217,6 +218,7 @@ function main() {
 		totaldex = parseInt($("dex").val());
 		acc = parseInt($("#acc").val());
 
+		console.log(acc)
 
 		// DAMAGE
 
@@ -425,18 +427,18 @@ function main() {
 function applyCritDamage(min, avg, max) {
 
 	var s = $('#sharpeyes option:selected').val();
-	var c = 0, d;
+	var c = 0, e;
 
 	if(job === "2") {
 		c = $('#critshot option:selected').val();
-		d = critshot[c]
+		e = critshot[c]
 	}
 	else if(job === "3") {
 		c = $('#critthrow option:selected').val();
-		d = critthrow[c]
+		e = critthrow[c]
 	}
 	else {
-		d = 0;
+		e = 0;
 	}
 
 	if(c == 0 && s == "x") {
@@ -448,11 +450,11 @@ function applyCritDamage(min, avg, max) {
 
 	else {
 
-		if(d > 0) {
-			critdamage += (d.damage - 1);
-			critrate += (d.rate - 1);
+		if(e > 0) {
+			critdamage += (e.damage - 1);
+			critrate += (e.rate - 1);
 		}
-		if(s > 0) {
+		if(e > 0) {
 			critdamage += (sharpeyesdata[s].damage - 1);
 			critrate += sharpeyesdata[s].rate;
 		}
@@ -513,9 +515,7 @@ function magicAccuracy(totalint, totalluk, m, d) {
 	var currentaccuracy = Math.floor(totalint / 10) + Math.floor(totalluk / 10);
 	var maxaccuracy = Math.floor((monsterlist[m].avoid + 1) * (1 + 0.04 * d));
 	var minaccuracy = Math.floor(0.41 * maxaccuracy);
-	var hitratio = -0.7011618132 * Math.pow(((currentaccuracy - minaccuracy + 1) /
-		(maxaccuracy - minaccuracy + 1)), 2) + 1.702139835 * ((currentaccuracy -
-		minaccuracy + 1) / (maxaccuracy - minaccuracy + 1));
+	var hitratio = -0.7011618132 * Math.pow(((currentaccuracy - minaccuracy + 1) / (maxaccuracy - minaccuracy + 1)), 2) + 1.702139835 * ((currentaccuracy -	minaccuracy + 1) / (maxaccuracy - minaccuracy + 1));
 	hitratio = Math.round(hitratio * 100);
 	if (currentaccuracy < minaccuracy) {
 		hitratio = 0;
@@ -532,8 +532,13 @@ function magicAccuracy(totalint, totalluk, m, d) {
 
 function globalAccuracy(d, acc, m) {
 
-	var hitratio = acc / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - 1;
+	console.log(d)
+	console.log(acc)
+	console.log(m)
+
+	var hitratio = acc / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - 1;	
 	hitratio = Math.round(hitratio * 100);
+
 	var outcomemin = 0;
 	var outcomemax = 0;
 	
@@ -542,28 +547,26 @@ function globalAccuracy(d, acc, m) {
 	if (hitratio > 100) {
 		hitratio = 100;
 	} else if (hitratio < 0) {
+		console.log(hitratio + "<0")
 		hitratio = 0;
 	} else if (isNaN(hitratio)) {
+		console.log(hitratio + "nan")
 		hitratio = 0;
 	}
 	
-	// min
-	
-	for (var i = 1; outcomemin < 100; i++) {
-		outcomemin = i / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - (1 * 0.05 * (d - 5));
-		outcomemin = Math.round(outcomemin * 100);
-		var maxaccuracy = i;
+	for (var i = 1; 100 > outcomemin; i++) {
+		outcomemin = i / ((1.84 + .07 * d) * monsterlist[m].avoid) - 1, 
+		outcomemin = Math.round(100 * outcomemin);
+		var accmin = i
 	}
-	
-	// max
-	
-	for (var i = 1; outcomemax < 1; i++) {
-		outcomemax = i / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - (1 * 0.05 * (d - 5));
-		outcomemax = Math.round(outcomemax * 100);
-		var minaccuracy = i;
+	for (var i = 1; 1 > outcomemax; i++) {
+		outcomemax = i / ((1.84 + .07 * d) * monsterlist[m].avoid) - 1, 
+		outcomemax = Math.round(100 * outcomemax);
+		var accmax = i
 	}
-	$("#maxaccuracy").html(maxaccuracy);
-	$("#minaccuracy").html(minaccuracy);
+
+	$("#maxaccuracy").html(accmin);
+	$("#minaccuracy").html(accmax);
 	$("#hitratio").html(hitratio);
 
 }
