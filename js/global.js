@@ -172,8 +172,6 @@ function main() {
 		d = 0;
 	}
 
-	console.log(d)
-
 	switch(job) {
 
 		case "1": // warrior
@@ -187,9 +185,6 @@ function main() {
 		acc = parseInt($("#acc").val());
 		
 		// DAMAGE
-
-		mindmg = parseInt($("#minrange").val());
-		maxdmg = parseInt($("#maxrange").val());
 
 		// elemental multiplier
 		
@@ -218,13 +213,33 @@ function main() {
 		totaldex = parseInt($("dex").val());
 		acc = parseInt($("#acc").val());
 
-		console.log(acc)
+		// Damage
 
-		// DAMAGE
+		maxdmg = parseInt($("#maxrange").val());
+		mindmg = parseInt($("#minrange").val());
 
-		// elemental multiplier
+		// Elemental multiplier
 		
 		checkWeakness(damagetype, m);
+
+		// Defense
+
+		maxdmg = (maxdmg) * (1 - 0.01 * d) - monsterlist[m].wdef * 0.5;
+		mindmg = (mindmg) * (1 - 0.01 * d) - monsterlist[m].wdef * 0.6;
+
+		// Main attack multiplier
+
+		maxdmg = maxdmg * ($("#archer-skillattack").val() / 100)
+		mindmg = mindmg * ($("#archer-skillattack").val() / 100)
+		avgdmg = Math.floor(parseInt((eval(maxdmg) + eval(mindmg)) / 2));
+
+		// Applying critical hits if they 
+
+		applyCritDamage(mindmg, avgdmg, maxdmg, job);
+
+		// Rounding damage to 1-99999
+
+		roundDamage(mindmg, maxdmg, avgdmg, false)
 
 		// ACCURACY
 		
@@ -337,7 +352,7 @@ function main() {
 		
 		// Applying critical hits if they 
 
-		applyCritDamage(mindmg, avgdmg, maxdmg);
+		applyCritDamage(mindmg, avgdmg, maxdmg, job);
 
 		// Rounding damage to 1-99999
 
@@ -395,7 +410,7 @@ function main() {
 		
 		// Applying critical hits if they 
 
-		applyCritDamage(mindmg, avgdmg, maxdmg);
+		applyCritDamage(mindmg, avgdmg, maxdmg, job);
 
 		// Rounding damage to 1-99999
 
@@ -424,24 +439,40 @@ function main() {
 
 // Apply critical damage
 
-function applyCritDamage(min, avg, max) {
+function applyCritDamage(min, avg, max, job) {
 
 	var s = $('#sharpeyes option:selected').val();
-	var c = 0, e;
+	var c = 0;
 
 	if(job === "2") {
-		c = $('#critshot option:selected').val();
-		e = critshot[c]
+		c = $('#a-critical option:selected').val();
+
+		if(!isNaN(c)) {
+			e = critshot[c];
+		}
+
+		else {
+			e = "x";
+		}
 	}
+
 	else if(job === "3") {
-		c = $('#critthrow option:selected').val();
-		e = critthrow[c]
+		c = $('#t-critical option:selected').val();
+
+		if(!isNaN(c)) {
+			e = critshot[c];
+		}
+
+		else {
+			e = "x";
+		}
 	}
+
 	else {
 		e = 0;
 	}
 
-	if(c == 0 && s == "x") {
+	if(e == "x" && s == "x") {
 		$("#critdamagechance").html("You are not applying any critical damage");
 		$("#mincritdmg").html("-");
 		$("#avgcritdmg").html("-");
@@ -450,25 +481,27 @@ function applyCritDamage(min, avg, max) {
 
 	else {
 
-		if(e > 0) {
+		if(e.rate > 0) {
 			critdamage += (e.damage - 1);
 			critrate += (e.rate - 1);
 		}
-		if(e > 0) {
+		if(s > 0) {
 			critdamage += (sharpeyesdata[s].damage - 1);
-			critrate += sharpeyesdata[s].rate;
+			critrate += (sharpeyesdata[s].rate - 1);
 		}
 
 		min *= (critdamage + 1);
 		avg *= (critdamage + 1);
 		max *= (critdamage + 1);
 
-		$("#critdamagechance").html("You have a <b>" + Math.round((critrate - 1) * 100) + "%</b> chance to do a critical hit");
+		$("#critdamagechance").html("You have a <b>" + Math.round(critrate * 100) + "%</b> chance to do a critical hit");
 
 		roundDamage(min, max, avg, true)
 
 		critdamage = 0;
 		critrate = 0;
+		c = 0;
+		e = 0;
 
 	}
 
@@ -532,10 +565,6 @@ function magicAccuracy(totalint, totalluk, m, d) {
 
 function globalAccuracy(d, acc, m) {
 
-	console.log(d)
-	console.log(acc)
-	console.log(m)
-
 	var hitratio = acc / ((1.84 + 0.07 * d) * monsterlist[m].avoid) - 1;	
 	hitratio = Math.round(hitratio * 100);
 
@@ -547,10 +576,8 @@ function globalAccuracy(d, acc, m) {
 	if (hitratio > 100) {
 		hitratio = 100;
 	} else if (hitratio < 0) {
-		console.log(hitratio + "<0")
 		hitratio = 0;
 	} else if (isNaN(hitratio)) {
-		console.log(hitratio + "nan")
 		hitratio = 0;
 	}
 	
@@ -638,6 +665,7 @@ function checkWeakness(damagetype, m) {
 	} else {
 		lightning = "None";
 	}
+
 	$("#lightningvalue").html(lightning);
 	if (damagetype !== 0) {
 		if (damagetype == 1) {
