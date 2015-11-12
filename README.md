@@ -3,12 +3,11 @@ A pre-bb calculator for the damage and accuracy of MapleStory characters
 
 ## To do:
 
-- Enable party-based skill damage calculation (SE)
-- General archer damage calculation
 - General thief damage calculation
 - General warrior damage calculation
 - General pirate damage calculation
 - Lucky seven / triple throw skill damage calculation
+- Clean up code / minify
 
 ## About
 
