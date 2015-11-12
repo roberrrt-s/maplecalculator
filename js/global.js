@@ -442,13 +442,13 @@ function main() {
 function applyCritDamage(min, avg, max, job) {
 
 	var s = $('#sharpeyes option:selected').val();
-	var c = 0;
+	var crit = 0;
 
 	if(job === "2") {
-		c = $('#a-critical option:selected').val();
+		crit = $('#a-critical option:selected').val();
 
-		if(!isNaN(c)) {
-			e = critshot[c];
+		if(!isNaN(crit)) {
+			e = critshot[crit];
 		}
 
 		else {
@@ -457,10 +457,10 @@ function applyCritDamage(min, avg, max, job) {
 	}
 
 	else if(job === "3") {
-		c = $('#t-critical option:selected').val();
+		crit = $('#t-critical option:selected').val();
 
-		if(!isNaN(c)) {
-			e = critshot[c];
+		if(!isNaN(crit)) {
+			e = critshot[crit];
 		}
 
 		else {
@@ -488,7 +488,6 @@ function applyCritDamage(min, avg, max, job) {
 		if(s > 0) {
 			if(job === "5" || "6") {
 				critdamage += (sharpeyesdata[s].damage);
-				console.log('heal or m.atk')
 			}
 			else {
 				critdamage += (sharpeyesdata[s].damage - 1);
@@ -506,7 +505,7 @@ function applyCritDamage(min, avg, max, job) {
 
 		critdamage = 0;
 		critrate = 0;
-		c = 0;
+		crit = 0;
 		e = 0;
 
 	}
